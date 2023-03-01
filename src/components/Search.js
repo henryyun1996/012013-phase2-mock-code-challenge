@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Search({ handleFilter }) {
-  const [filterInput, setFilterInput] = useState("");
-
-  function trackFilterInput(e) {
-    setFilterInput(e.target.value);
-    handleFilter(e.target.value);
-  }
+function Search({ filteredPlantList, setFilteredPlantList }) {
 
   return (
     <div className="searchbar">
@@ -15,8 +9,8 @@ function Search({ handleFilter }) {
         type="text"
         id="search"
         placeholder="Type a name to search..."
-        value={filterInput}
-        onChange={trackFilterInput}
+        value={filteredPlantList}
+        onChange={(e) => setFilteredPlantList(e.target.value)}
       />
     </div>
   );

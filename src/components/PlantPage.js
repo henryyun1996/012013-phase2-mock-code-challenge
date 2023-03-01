@@ -7,6 +7,7 @@ const plantAPI = "http://localhost:6001/plants";
 
 function PlantPage() {
   const [plantInfo, setPlantInfo] = useState([]);
+  const [filteredPlantList, setFilteredPlantList] = useState("")
 
   useEffect(() => {
     fetch(plantAPI)
@@ -18,33 +19,33 @@ function PlantPage() {
     const plantObj = {
       name: name,
       image: image,
-      price: price,
+      price: parseInt(price),
     };
     fetch(plantAPI, {
       method: "POST",
-      header: {
+      headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(plantObj),
     })
       .then((response) => response.json())
-      .then((plant) => setPlantInfo([...plantInfo, plant]));
+      .then(plant => setPlantInfo([...plantInfo, plant]));
   }
 
-  function handleFilter(filterInput) {
-    return plantInfo.filter((plant) =>
-      plant.name.toUpperCase().includes(filterInput.toUpperCase())
-    );
-  }
+  // function handleFilter(filterInput) {
+  //   return plantInfo.filter((plant) =>
+  //     plant.name.toUpperCase().includes(filterInput.toUpperCase())
+  //   );
+  // }
 
-  const filteredPlantList = handleFilter("");
+  const filteredPlant = plantInfo.filter((plant) => plant.name.toUpperCase().includes(filteredPlantList.toUpperCase()))
 
   return (
     <main>
       <NewPlantForm renderNewPlant={renderNewPlant} />
-      <Search handleFilter={handleFilter} />
-      <PlantList plantInfo={filteredPlantList} />
+      <Search filteredPlantList={filteredPlantList} setFilteredPlantList={setFilteredPlantList} />
+      <PlantList plantInfo={filteredPlant} />
     </main>
   );
 }

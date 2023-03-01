@@ -17,7 +17,7 @@ function NewPlantForm({ renderNewPlant }) {
   return (
     <div className="new-plant-form">
       <h2>New Plant</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input 
           type="text" 
           name="name" 
@@ -40,7 +40,7 @@ function NewPlantForm({ renderNewPlant }) {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <button type="submit" onSubmit={handleSubmit} >Add Plant</button>
+        <button type="submit">Add Plant</button>
       </form>
     </div>
   );
